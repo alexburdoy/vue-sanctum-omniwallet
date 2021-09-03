@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard">
     <h1>Dashboard View</h1>
+    <div
+    v-for="customer in info"
+    class="customer">{{info}}</div>
   </div>
 </template>
 
@@ -13,13 +16,14 @@ axios.defaults.baseURL = "http://localhost:8000";
 export default {
   data() {
     return {
-      email: "",
+      info: "",
     };
   },
 
   mounted() {
-    axios.get("/apicustomers").then((response) => {
-      this.email = response.data.email;
+    axios.get("/home").then((response) => {
+      this.info = response.data[1].name;
+      console.log(response.data);
     });
   },
 };
