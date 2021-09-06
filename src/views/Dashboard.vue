@@ -1,9 +1,14 @@
 <template>
   <div class="dashboard">
     <h1>Dashboard View</h1>
-    <div
-    v-for="customer in info"
-    class="customer">{{info}}</div>
+    <h1>Customers</h1>
+    <div>
+      <ul>
+        <li v-for="customer of customers">
+          {{ customer.name }} {{ customer.email }} {{ customer.card }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -16,13 +21,13 @@ axios.defaults.baseURL = "http://localhost:8000";
 export default {
   data() {
     return {
-      info: "",
+      customers: [],
     };
   },
 
   mounted() {
     axios.get("/home").then((response) => {
-      this.info = response.data[1].name;
+      this.customers = response.data;
       console.log(response.data);
     });
   },
